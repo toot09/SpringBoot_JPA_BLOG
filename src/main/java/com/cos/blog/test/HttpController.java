@@ -15,6 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HttpController {
 
+	@GetMapping("/http/lombok")
+	public String lombokTest() {
+		// AllArgsConstructor 사용 
+		//Member m = new Member(1, "UJONE", "1234", "GMAIL");
+		// Builder 사용 
+		Member m = Member.builder().email("GMAIL").id(0).password("1234").username("IAM").build();
+		System.out.println("id : "+m.getId());
+		m.setId(2);
+		System.out.println("id : "+m.getId());
+		return "lombok test 완료";
+	}
+	
 	// http://localhost:8080/http/get (seletct)
 	@GetMapping("/http/get")
 	public String getTest(Member m) { //@RequestParam int id
