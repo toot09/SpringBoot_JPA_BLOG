@@ -24,6 +24,7 @@ public class HttpController {
 		System.out.println("id : "+m.getId());
 		m.setId(2);
 		System.out.println("id : "+m.getId());
+		
 		return "lombok test 완료";
 	}
 	
