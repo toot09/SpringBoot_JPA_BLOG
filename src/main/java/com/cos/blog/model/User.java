@@ -30,7 +30,7 @@ public class User {
 	@ColumnDefault("'user'")
 	private String role; // 권한 같은 경우 enum 객체를 만들어서 쓰면 좋다.
 	
-	@CreationTimestamp // Entity 생성될 시간 자동으로 입력
+	@CreationTimestamp // 인스턴 생성될 시간 자동으로 입력
 	private Timestamp createDate;
 	
 }
