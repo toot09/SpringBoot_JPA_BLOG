@@ -17,7 +17,7 @@ public class TempController {
 	public String tempJsp() {
 		System.out.println("tempJsp");
 		// 파일리턴 기본경로 : src/main/resource/static
-		return "home";
+		return "home"; 
 	}
 	
 }
