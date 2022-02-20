@@ -53,7 +53,7 @@ public class Board {
 	// 4. board는 Reply에서 Board연결한 FK값.
 	// [fetch]
 	// 1. FetchType.EAGER : Board를 select 할 때 바로 가져온다. (한페이지에 바로 모든 데이터 보여줄때)
-	// 2. FetchTypeLazy : 필요할때(호출할때) 가져온다. (예로 리플 접기, 펼치기 기능 있을때)
+	// 2. FetchType.Lazy : 필요할때(호출할때) 가져온다. (예로 리플 접기, 펼치기 기능 있을때)
 	@OneToMany(mappedBy =  "board", fetch = FetchType.EAGER) 
 	private List<Reply> reply;
 	
