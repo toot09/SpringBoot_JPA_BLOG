@@ -1,8 +1,14 @@
 package com.cos.blog.test;
 
+import java.util.List;
 import java.util.function.Supplier;
 
+import javax.swing.SortOrder;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +18,8 @@ import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
 
+import net.bytebuddy.asm.Advice.OffsetMapping.Sort;
+
 @RestController
 public class DummyController {
 
@@ -20,9 +28,26 @@ public class DummyController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@GetMapping("/dummy/user")
+	public List<User> userPage(@PageableDefault(size=2, sort="id") Pageable pageable) {
+		
+		// Page는 isLast, pageSize등 페이징 처리에 사용되는 값이 있기 때문에 사용할 수 있음.
+		Page<User> page = userRepository.findAll(pageable);
+		
+		// Content 만 사용거면 List형으로 getContent로 사
+		List<User> users = page.getContent();
+		
+		return users;
+	}
+	
+	@ GetMapping("/dummy/user/all")
+	public List<User> userAll() {
+		return userRepository.findAll();
+	}
+	
 	// {id}주소로 파라미터 전달 받을 수 있음.
 	@GetMapping("/dummy/user/{id}")
-	public User detail(@PathVariable int id) {
+	public User userdetail(@PathVariable int id) {
 		// findById의 형태는 Optional이다.
 		// 왜냐?아이디 값으로 조회했는데null값이면 빈 객체로 인해 오류 발생할 수 있으니
 		// Optional 값으로 줄테니 니가 알아서 걸러서 써
