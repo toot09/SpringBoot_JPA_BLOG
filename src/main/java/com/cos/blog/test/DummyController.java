@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import javax.swing.SortOrder;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,12 +13,13 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
-
 import net.bytebuddy.asm.Advice.OffsetMapping.Sort;
 
 @RestController
@@ -27,6 +29,31 @@ public class DummyController {
 	// UserRepository의 JpaRepository는 IoC를 통해 메모리에 떠있기 때문에 Autowired로 사용가능(DI).
 	@Autowired
 	private UserRepository userRepository;
+
+	@Transactional
+	@PutMapping("/dummy/user/{id}")
+	public String userUpdate(@PathVariable int id, @RequestBody User requestUser) {
+		
+//		User user = userRepository.findById(id).orElseThrow(new Supplier<IllegalArgumentException>() {
+//			@Override
+//			public IllegalArgumentException get() {
+//				return new IllegalArgumentException("없음");
+//			}
+//		});
+		
+
+		User user = userdetail(id);
+		
+		user.setEmail(requestUser.getEmail());
+		user.setPassword(requestUser.getPassword());
+
+		// id 값을 전달하면 update
+		// id 값이 없다면 insert
+		//userRepository.save(user);
+		
+		return "Update 완료";
+	}
+	
 	
 	@GetMapping("/dummy/user")
 	public List<User> userPage(@PageableDefault(size=2, sort="id") Pageable pageable) {
