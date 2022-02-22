@@ -32,12 +32,13 @@ public class DummyController {
 	private UserRepository userRepository;
 
 	@DeleteMapping("/dummy/user/{id}")
-	public String userDelete(@PathVariable int id) {
+	public String userDelete(@PathVariable int id)  {
 		
 		try {
 			userRepository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
-			return "삭제 실패 아이디 없음";
+			e = new EmptyResultDataAccessException("삭제할 아이디가 없습니다", id);
+			throw e;
 		}
 		
 		return id+" Delete 완료";
