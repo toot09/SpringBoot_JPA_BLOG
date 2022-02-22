@@ -7,9 +7,11 @@ import javax.swing.SortOrder;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
-import net.bytebuddy.asm.Advice.OffsetMapping.Sort;
 
 @RestController
 public class DummyController {
@@ -30,9 +31,22 @@ public class DummyController {
 	@Autowired
 	private UserRepository userRepository;
 
-	@Transactional
+	@DeleteMapping("/dummy/user/{id}")
+	public String userDelete(@PathVariable int id) {
+		
+		try {
+			userRepository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			return "삭제 실패 아이디 없음";
+		}
+		
+		return id+" Delete 완료";
+	}
+	
+	
+	@Transactional // 함수 종료시에 자동 commit 
 	@PutMapping("/dummy/user/{id}")
-	public String userUpdate(@PathVariable int id, @RequestBody User requestUser) {
+	public User userUpdate(@PathVariable int id, @RequestBody User requestUser) {
 		
 //		User user = userRepository.findById(id).orElseThrow(new Supplier<IllegalArgumentException>() {
 //			@Override
@@ -41,7 +55,7 @@ public class DummyController {
 //			}
 //		});
 		
-
+		// userDetail 메서드에서 가져온다.(어짜피 Exception 처리도 하니꼐)
 		User user = userdetail(id);
 		
 		user.setEmail(requestUser.getEmail());
@@ -51,7 +65,7 @@ public class DummyController {
 		// id 값이 없다면 insert
 		//userRepository.save(user);
 		
-		return "Update 완료";
+		return user;
 	}
 	
 	
