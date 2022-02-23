@@ -19,5 +19,10 @@ public class GlobalExceptionHandler {
 	public String handleEmptyResultDataAccessException(EmptyResultDataAccessException e) {
 		return "<h1>"+e.getMessage()+"</h1>";
 	}
+
+	@ExceptionHandler(Exception.class)
+	public String Exception(Exception e) {
+		return "<h1>"+e.getMessage()+"</h1>";
+	}
 	
 }

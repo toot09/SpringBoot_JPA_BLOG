@@ -3,23 +3,21 @@
 
 <div class="container">
 
-	<form action="/action_page.php">
+	<form>
 
 		<div class="form-group">
 			<label for="email">User Name:</label> <input type="text" class="form-control" placeholder="Enter your name" id="username">
 		</div>
-
-		<div class="form-group">
-			<label for="email">Email address:</label> <input type="email" class="form-control" placeholder="Enter email" id="email">
-		</div>
-
 		<div class="form-group">
 			<label for="password">Password:</label> <input type="password" class="form-control" placeholder="Enter password" id="password">
 		</div>
-		<button type="submit" class="btn btn-primary">회원신청</button>
+		<button type="submit" class="btn btn-primary">로그인</button>
 	</form>
+	<div class="form-group form-check">
+		<label class="form-check-label"> <input class="form-check-input" type="checkbox"> Remember me
+		</label>
+	</div>
 
 </div>
 
 <%@ include file="../layout/footer.jsp"%>
-
