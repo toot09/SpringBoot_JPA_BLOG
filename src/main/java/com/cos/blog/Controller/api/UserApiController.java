@@ -21,22 +21,9 @@ public class UserApiController {
 	@Autowired
 	private UserService service;
 
-	@PostMapping("/api/user")
+	@PostMapping("/auth/joinProc")
 	public ResponseDto<Integer> save(@RequestBody User user) throws Exception {
 		service.insert(user);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
-
-//	@PostMapping("/api/user/login")
-//	public ResponseDto<Integer>  login(@RequestBody User user, HttpSession session) throws Exception {
-//		User principal = service.login(user); // principal (접근주체)
-//		
-//		// 로그인이 되면 세션에 사용자 정보 user를 적용한다.
-//		if(principal != null) {
-//			session.setAttribute("principal", principal);
-//		}
-//		
-//		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-//	}
-
 }

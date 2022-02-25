@@ -23,7 +23,7 @@ spring:
     open-in-view: true
     hibernate:
       #create으로 하면 프로젝트 실행할때마다 재생성 하기 때문에 update로 바꾼다.
-      ddl-auto: update
+      ddl-auto: create
       naming:
        # 내가 지정한 필드명 그대로 사용한다.
        # SpringPhysicalNamingStrategy : 자동으로 내가 지정한 필드를 CamelToe에서 언더바 명명으로 바꿔준다 (emailName->email_name)
