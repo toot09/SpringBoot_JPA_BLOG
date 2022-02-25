@@ -5,7 +5,6 @@ let index = {
 		});
 	},
 	save: function() {
-		//alert("잘 왔습니다.");
 		let data = {
 			username: $("#username").val(),
 			email: $("#email").val(),

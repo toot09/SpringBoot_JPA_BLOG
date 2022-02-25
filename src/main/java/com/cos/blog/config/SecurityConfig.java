@@ -1,21 +1,30 @@
 package com.cos.blog.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Configuration	// 빈등록 (IoC관리)
 @EnableWebSecurity	//	필터에 시큐리티가 등록된다.
 @EnableGlobalMethodSecurity(prePostEnabled = true) 	// 특정 주소로 접근을 하면 권한 및 인증을 미리 체크하겠다.
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
+	
+	@Bean	// IoC가 됨.
+	public BCryptPasswordEncoder encodePWD() {
+		return new BCryptPasswordEncoder();
+	}
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+			.csrf().disable() 	// scrf토큰 비활성화 (테스트 시 걸어두는게 좋음)
 			.authorizeHttpRequests()				// Request가 들어왔을때
-				.antMatchers("/auth/**")					// 이 url (여기서는 auth로 시작하는 url) 로 들어왔을때 
+				.antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**")					// 이 url (여기서는 auth로 시작하는 url) 로 들어왔을때 
 				.permitAll()										// 모두 허용해준다.
 				.anyRequest()									// 위가 아닌 모든 Request는 
 				.authenticated()								// 인증해야함.
