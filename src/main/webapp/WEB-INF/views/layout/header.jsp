@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- JSTL tag -->
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<!-- Spring Security tag -->
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<!-- Spring Security Login Session 처리 -->
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="principal"/>
+</sec:authorize>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +31,7 @@
 		
 			<!-- Session에 principal 항목이 미할당 되어있다면 (로그인X) -->
 			<c:choose>
-				<c:when test="${empty sessionScope.principal}">
+				<c:when test="${empty principal}">
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link" href="/loginForm">로그인</a></li>
 						<li class="nav-item"><a class="nav-link" href="/joinForm">회원가입</a></li>
