@@ -23,6 +23,6 @@
 </div>
 
 <!-- js경로는 static경로로 자동 지정되어 찾아간다. -->
-<script src="/blog/js/user.js"></script>
+<script src="/js/user.js"></script>
 
 <%@ include file="../layout/footer.jsp"%>
