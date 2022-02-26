@@ -1,8 +1,12 @@
 package com.cos.blog.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -35,4 +39,9 @@ public class BoardService {
 		
 		boardRepository.save(board);
 	} 
+	
+	public List<Board> getBoards() {
+		return boardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+	}
+	
 }
