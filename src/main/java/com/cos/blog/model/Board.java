@@ -39,7 +39,6 @@ public class Board {
 	@Lob
 	private String content;
 	
-	@ColumnDefault("0")
 	private int count;	
 	
 	@ManyToOne // Many = Board, One = User
@@ -48,7 +47,7 @@ public class Board {
 	
 	// [mappedBy]
 	// 1. 연관관계의 주인이 아님. (FK는 board에 있음)
-	// 2. DB에 컬럼 생성 아님.
+	// 2. DB에 컬럼 생성 아님!
 	// 3. Board를 가져올때, Reply를 가져오기 위해 생성.
 	// 4. board는 Reply에서 Board연결한 FK값.
 	// [fetch]
