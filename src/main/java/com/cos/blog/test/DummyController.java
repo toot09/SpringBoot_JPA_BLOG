@@ -71,7 +71,7 @@ public class DummyController {
 	
 	
 	@GetMapping("/dummy/user")
-	public List<User> userPage(@PageableDefault(size=2, sort="id") Pageable pageable) {
+	public Page<User> userPage(@PageableDefault(size=2, sort="id") Pageable pageable) {
 		
 		// Page는 isLast, pageSize등 페이징 처리에 사용되는 값이 있기 때문에 사용할 수 있음.
 		Page<User> page = userRepository.findAll(pageable);
@@ -79,7 +79,7 @@ public class DummyController {
 		// Content 만 사용거면 List형으로 getContent로 사
 		List<User> users = page.getContent();
 		
-		return users;
+		return page;
 	}
 	
 	@ GetMapping("/dummy/user/all")
