@@ -4,9 +4,19 @@
 <div class="container">
 
 		<button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
-		<button class="btn btn-warning" id="btn-update">수정</button>
-		<button class="btn btn-danger" id="btn-delete">삭제</button>
+		<c:if test="${board.user.id == principal.user.id}">
+			<button class="btn btn-warning" id="btn-update">수정</button>
+			<button class="btn btn-danger" id="btn-delete">삭제</button>
+		</c:if>
 		<br/><br/>
+		
+		<%-- <input type="hidden" id="id" value="${board.id}"> --%>
+		<div>
+			글 번호 : <span id="id">${board.id}</span>
+			<br/>
+			글 작성자 : <span>${board.user.username}</span>
+		</div>
+		<br/>
 		
 		<div>
 			<h3>${board.title}</h3>

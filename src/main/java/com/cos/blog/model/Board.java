@@ -43,7 +43,7 @@ public class Board {
 	
 	@ManyToOne // Many = Board, One = User
 	@JoinColumn(name="userId") // DB에서는 Object를 저장할 수 없으니 실제 DB에서 사용될 PK명 입력.
-	private User userId; // RDB는 FK 값으로 JOIN하지만 ORM(JPA)는 객체 자체로 생성.
+	private User user; // RDB는 FK 값으로 JOIN하지만 ORM(JPA)는 객체 자체로 생성.
 	
 	// [mappedBy]
 	// 1. 연관관계의 주인이 아님. (FK는 board에 있음)

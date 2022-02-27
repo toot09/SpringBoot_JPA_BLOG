@@ -3,6 +3,9 @@ let index = {
 		$("#btn-save").on("click", () => {
 			this.save();
 		});
+		$("#btn-delete").on("click", () => {
+			this.deleteById();
+		});
 	},
 	save: function() {
 		let data = {
@@ -19,6 +22,23 @@ let index = {
 			dataType: "json" // 응답왔을때 기본적으로 대부분 문자열인데 json같다? 그러면 javascript object로 변환해준다.  
 		}).done(function(resp) {
 			alert("글이 등록 되었습니다.");
+			console.log(resp);
+			location.href = "/";
+		}).fail(function(err) {
+			alert(JSON.stringify(err));
+		});
+	},
+	
+	deleteById: function() {
+		
+		var id = $("#id").text();
+		
+		
+		$.ajax({
+			type: "DELETE",
+			url: "/api/board/"+id,
+		}).done(function(resp) {
+			alert("글이 삭제 되었습니다.");
 			console.log(resp);
 			location.href = "/";
 		}).fail(function(err) {
