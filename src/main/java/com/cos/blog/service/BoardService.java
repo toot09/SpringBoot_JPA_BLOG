@@ -46,6 +46,16 @@ public class BoardService {
 		boardRepository.deleteById(id);
 	}
 	
+	@Transactional
+	public void update(Board mod) {
+		Board board = boardRepository.findById(mod.getId()).orElseThrow(()->{
+			return new IllegalArgumentException("존재하지 않는 글입니다.");
+		});
+		board.setTitle(mod.getTitle());
+		board.setContent(mod.getContent());
+		//Dirty Check
+	}
+	
 	@Transactional(readOnly = true)
 	public Page<Board> getBoards(Pageable pageable) {
 		return boardRepository.findAll(pageable);

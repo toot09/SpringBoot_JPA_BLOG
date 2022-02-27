@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,15 +24,21 @@ public class BoardApiController {
 	BoardService service;
 
 	@PostMapping("/api/board")
-	public ResponseDto<Integer> board(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) {
+	public ResponseDto<Integer> getBoard(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) {
 		service.insert(board, principal.getUser());
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 	
 	@DeleteMapping("/api/board/{id}")
-	public ResponseDto<Integer> board(@PathVariable int id) {
-		System.out.println("id : "+id);
+	public ResponseDto<Integer> deleteBoard(@PathVariable int id) {
 		service.delete(id);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
+	
+	@PutMapping("api/board")
+	public ResponseDto<Integer> updateBoard(@RequestBody Board mod) {
+		service.update(mod);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
+	
 }
