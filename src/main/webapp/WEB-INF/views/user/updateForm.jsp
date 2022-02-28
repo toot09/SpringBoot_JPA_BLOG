@@ -12,18 +12,17 @@
 		</div>
 
 		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" class="form-control" placeholder="Enter 1st password" id="password1">
+			<label for="password">Password 재입력</label>
+			<input type="password" class="form-control" placeholder="Enter 2nd password" id="password2">
+		</div>
+
+		<div class="form-group">
 			<label for="email">Email address:</label>
 			<input type="email" value="${principal.user.email}" class="form-control" placeholder="Enter email" id="email">
 		</div>
 
-		<div class="form-group">
-			<label for="password">Password</label>
-			<input type="password" class="form-control" placeholder="Enter password" id="password1">
-		</div>
-		<div class="form-group">
-			<label for="password">Password 재입력</label>
-			<input type="password" class="form-control" placeholder="Enter password" id="password2">
-		</div>
 	</form>
 	
 	<button id="btn-update" class="btn btn-primary">회원변경</button>

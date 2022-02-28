@@ -20,10 +20,10 @@ public class PrincipalDetailService implements UserDetailsService {
 	// username이 DB에 있는지만 확인해주면 됨.
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByUsername(username).orElseThrow(() -> {
+		User principal = userRepository.findByUsername(username).orElseThrow(() -> {
 			return new UsernameNotFoundException("해당 유저를 찾을 수 없습니다.");
 		});
-		return new PrincipalDetail(user); // 리턴이 되면 세션에 유저 정보가 저장이됨.
+		return new PrincipalDetail(principal); // 리턴이 되면 세션에 유저 정보가 저장이됨.
 	}
 
 }
