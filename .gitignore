@@ -12,6 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
+src/main/java/com/cos/blog/config/ApiConfig.java
 
 ### IntelliJ IDEA ###
 .idea
