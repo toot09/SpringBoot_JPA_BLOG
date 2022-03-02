@@ -1,7 +1,9 @@
 # SpringBoot_JPA_BLOG
 
 Spring boot 4
+
 JPA
+
 MySql
 Spring Security
 BootStrap
