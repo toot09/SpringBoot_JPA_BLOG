@@ -12,6 +12,9 @@ let index = {
 		$("#btn-reply-save").on("click", () => {
 			this.saveReply();
 		});
+		$("#btn-reply-save").on("click", () => {
+			this.saveReply();
+		});
 	},
 	save: function() {
 		let data = {
@@ -86,6 +89,20 @@ let index = {
 			alert("댓글이 등록 되었습니다.");
 			console.log(resp);
 			location.href = "/board/"+data.boardId;
+		}).fail(function(err) {
+			alert(JSON.stringify(err));
+		});
+	},
+	
+	deleteReply: function(boardId, replyId) {
+		
+		$.ajax({
+			type: "DELETE",
+			url: "/api/board/"+boardId+"/reply/"+replyId,
+		}).done(function(resp) {
+			alert("댓글이 삭제 되었습니다.");
+			console.log(resp);
+			location.href = "/board/"+boardId;
 		}).fail(function(err) {
 			alert(JSON.stringify(err));
 		});

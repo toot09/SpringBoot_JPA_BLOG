@@ -3,6 +3,7 @@ package com.cos.blog.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -56,7 +57,7 @@ public class Board {
 	// [fetch]
 	// 1. FetchType.EAGER : Board를 select 할 때 바로 가져온다. (한페이지에 바로 모든 데이터 보여줄때)
 	// 2. FetchType.Lazy : 필요할때(호출할때) 가져온다. (예로 리플 접기, 펼치기 기능 있을때)
-	@OneToMany(mappedBy =  "board", fetch = FetchType.EAGER) 
+	@OneToMany(mappedBy =  "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE) 
 	@JsonIgnoreProperties({"board"})
 	@OrderBy("id desc")
 	private List<Reply> replys;

@@ -79,4 +79,9 @@ public class BoardService {
 		replyRepository.mSave(replySaveRequestDto.getContent(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getUserId());
 	}
 	
+	@Transactional
+	public void deleteReply(int boardId, int replyId) {
+		replyRepository.mDelete(boardId, replyId);
+	}
+	
 }
