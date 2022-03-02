@@ -15,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.config.auth.PrincipalDetailService;
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
+import com.cos.blog.repository.ReplyRepository;
 import com.cos.blog.repository.UserRepository;
 
 @Service
@@ -27,6 +29,9 @@ public class BoardService {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	ReplyRepository replyRepository;
 	
 	@Autowired
 	PrincipalDetailService principalDetailService;
@@ -66,6 +71,15 @@ public class BoardService {
 		return boardRepository.findById(id).orElseThrow(()->{
 			return new IllegalArgumentException("글 상세보기 실패 ");
 		});
+	}
+	
+	@Transactional
+	public void saveReply(Reply reply, User user, int boardId) {
+		reply.setBoard(boardRepository.findById(boardId).orElseThrow(()->{
+			return new IllegalArgumentException("Board ID를 찾을 수 없습니다.");
+		}));
+		reply.setUser(user);
+		replyRepository.save(reply);
 	}
 	
 }

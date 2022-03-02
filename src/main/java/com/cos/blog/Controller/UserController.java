@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.cos.blog.config.ApiConfig;
+import com.cos.blog.model.OAuthToken;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /*
 	[인증이 안된 사용자들이 출입할 수 있는 경로]
@@ -49,7 +53,6 @@ public class UserController {
 		// Retrofit2
 		// OkHttp
 		// RestTemplate
-		
 		RestTemplate rt = new RestTemplate();
 		
 		// 해더 만들기 
@@ -75,7 +78,21 @@ public class UserController {
 				kakaoTokenRequest,
 				String.class);
 		
-		return "리턴 완료 : "+response;
+		// JSON 데이터 Object에 담기. (라이브러리 : Gson, Json Simple, ObjectMapper)
+		ObjectMapper objectMapper = new ObjectMapper();
+		OAuthToken oAuthToken = null;
+		try {
+			// OAuthToken는 내가 만든 Class이며 이에 맞게 JSON을 객체화 한다.
+			oAuthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		// 일단 카카오 로그인 OAuth2.0은 스
+		
+		return response.getBody();
 	}
 	
 	@GetMapping("/user/updateForm")

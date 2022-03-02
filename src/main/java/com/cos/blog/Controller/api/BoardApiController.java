@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.dto.ResponseDto;
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.service.BoardService;
 
 @RestController
@@ -24,7 +25,7 @@ public class BoardApiController {
 	BoardService service;
 
 	@PostMapping("/api/board")
-	public ResponseDto<Integer> getBoard(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) {
+	public ResponseDto<Integer> saveBoard(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) {
 		service.insert(board, principal.getUser());
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
@@ -40,5 +41,12 @@ public class BoardApiController {
 		service.update(mod);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
+	
+	@PostMapping("/api/board/{boardId}/reply")
+	public ResponseDto<Integer> saveReply(@PathVariable int boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal) {
+		service.saveReply(reply, principal.getUser(), boardId);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
+	
 	
 }
